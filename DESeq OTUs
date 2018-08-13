@@ -8,4 +8,20 @@ dds_l6 = DESeqDataSetFromMatrix(countData= L6, colData = meta, design= ~ Categor
 L6_rld= rlog(dds_L6, blind=T)
 plotPCA(L6_rld, intgroup=c("location"))
 
+##Get Normalized Counts table
+> L6_norm = counts(dds_L6, normalized=T)
+> write.table(L6_norm, sep='\t\, file= "DESeqNorm_L6otus.txt")
+
+##Get the results by CATEGORY and filter them for Padj < 0.05:
+> Res_GvsT = results(dds_L6, contrast =c("Category","GABOSR","TOWOSR"))
+> ResSig_GvsT = subset(Res_GvsT,padj<0.05)
+> write.table(ResSig_GvsT, sep="\t", file="L6res_GvsT_padj05.txt")
+
+##Get the total# of L6 categories with Sig Dif Abundance:
+cat L6res_TvsP_padj05.txt |cut -f 1 > TvP_ID
+cat GvT_ID GvP_ID TvP_ID |sort|uniq > L6_uniq.txt
+cat L6_2LFC_IDs.txt |sort|uniq> L6_2LFC_uniqueIDs.txt
+
+**--> OUT OF 1806 LEVEL 6 TAXONOMIC GROUPS identified, 408 of them were differentially abundant with padj <0.05 and 273 had |L2FC|> 2**
+
 
