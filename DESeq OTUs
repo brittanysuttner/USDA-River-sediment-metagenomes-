@@ -1,6 +1,10 @@
-##Load the R workspace from above and read L6 table into R
-> load("DESeq_OTUs.RData")
-> L6 = read.table("00.RawCountTables/All27.sorted.otu_L6.txt", quote = "",stringsAsFactors = FALSE, sep="\t", header=TRUE, row.names=1)
-> dds_l6 = DESeqDataSetFromMatrix(countData= L6, colData = meta, design= ~ Category)
-> L6_rld= rlog(dds_L6, blind=T)
-> plotPCA(L6_rld, intgroup=c("location"))
+## Load the R workspace from above and read L6 table into R
+load("DESeq_OTUs.RData")
+L6 = read.table("00.RawCountTables/All27.sorted.otu_L6.txt", quote = "",stringsAsFactors = FALSE, sep="\t", header=TRUE, row.names=1)
+
+## Do DEseq and plotPCA:
+dds_l6 = DESeqDataSetFromMatrix(countData= L6, colData = meta, design= ~ Category)
+L6_rld= rlog(dds_L6, blind=T)
+plotPCA(L6_rld, intgroup=c("location"))
+
+
