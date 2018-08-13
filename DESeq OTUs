@@ -1,4 +1,5 @@
 ## Load the R workspace from above and read L6 table into R
+===========================================================
 load("DESeq_OTUs.RData")
 L6 = read.table("00.RawCountTables/All27.sorted.otu_L6.txt", quote = "",stringsAsFactors = FALSE, sep="\t", header=TRUE, row.names=1)
 
